@@ -6,7 +6,7 @@ class App extends Component {
     super();
     this.state={
       height:10,
-      width:2
+      width:10
 
     }
     this.handleChangeHeight=this.handleChangeHeight.bind(this);
