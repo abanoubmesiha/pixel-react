@@ -9,10 +9,6 @@ class App extends Component {
       width:10
 
     }
-    this.handleChangeHeight=this.handleChangeHeight.bind(this);
-    this.handleChangeWidth=this.handleChangeWidth.bind(this);
-    this.handleClick=this.handleClick.bind(this);
-    this.handleDoubleClickItem = this.handleDoubleClickItem.bind(this);
   }
   handleDoubleClickItem(event): void {
   	event.target.style.backgroundColor = null;
@@ -21,8 +17,7 @@ class App extends Component {
   handleClick(event){
     const color = document.querySelector("#colorPicker").value;
     event.target.style.backgroundColor = color;
-    };
-  
+  }
   handleChangeHeight(event){
     this.setState({
       height: event.target.value
@@ -44,7 +39,7 @@ class App extends Component {
           cells.push(<td key={cellID} id={cellID} 
                         onClick={this.handleClick.bind(this)}
                         style={{backgroundColor: "#ffffff"}}
-                        onDoubleClick={this.handleDoubleClickItem}></td>)
+                        onDoubleClick={this.handleDoubleClickItem.bind(this)}></td>)
         }
         rows.push(<tr key={rowID} id={rowID}>{cells}</tr>)
       }
@@ -57,10 +52,10 @@ class App extends Component {
             <form id="sizePicker">
                 Grid Height:
                 <input type="number" id="inputHeight" name="height" min="1"
-                      value={height} onChange={this.handleChangeHeight} />
+                      value={height} onChange={this.handleChangeHeight.bind(this)} />
                 Grid Width:
                 <input type="number" id="inputWidth" name="width" min="1"
-                      value={width} onChange={this.handleChangeWidth} />
+                      value={width} onChange={this.handleChangeWidth.bind(this)} />
             </form>
 
             <h2>Pick A Color</h2>
