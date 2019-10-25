@@ -12,6 +12,10 @@ class App extends Component {
     this.handleChangeHeight=this.handleChangeHeight.bind(this);
     this.handleChangeWidth=this.handleChangeWidth.bind(this);
     this.handleClick=this.handleClick.bind(this);
+    this.handleDoubleClickItem = this.handleDoubleClickItem.bind(this);
+  }
+  handleDoubleClickItem(event): void {
+  	event.target.style.backgroundColor = null;
   }
 
   handleClick(event){
@@ -30,7 +34,7 @@ class App extends Component {
     })
   }
   render() {
-
+// generate rows and cells
       let rows = [];
       for (let r = 0; r < this.state.height; r++){
         let rowID = `row${r+1}`;
@@ -39,11 +43,12 @@ class App extends Component {
           let cellID = `cell${r+1}-${c+1}`;
           cells.push(<td key={cellID} id={cellID} 
                         onClick={this.handleClick.bind(this)}
-                        style={{backgroundColor: "#ffffff"}}></td>)
-        } //console.log(cells);
+                        style={{backgroundColor: "#ffffff"}}
+                        onDoubleClick={this.handleDoubleClickItem}></td>)
+        }
         rows.push(<tr key={rowID} id={rowID}>{cells}</tr>)
       }
-     //console.log(rows);
+     
     const {height, width} = this.state;
       return (
         <div className="container">
@@ -72,6 +77,7 @@ class App extends Component {
 
             </tfoot>
             </table>
+            
         </div>
     );
 }
