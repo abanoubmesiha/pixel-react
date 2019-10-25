@@ -6,14 +6,30 @@ class App extends Component {
     super();
     this.state={
       height:10,
-      width:10
+      width:10,
+      drag:false
 
     }
+  }
+  HandleHoverOn(event){
+    const color = document.querySelector("#colorPicker").value;
+    if (this.state.drag) 
+    { event.target.style.backgroundColor = color; }
+  }
+  handleMouseUp(event){
+        this.setState({
+          drag:false
+        })
+  }
+  handleMouseDown(event){
+    this.setState({
+      drag:true
+    })
+    
   }
   handleDoubleClickItem(event): void {
   	event.target.style.backgroundColor = null;
   }
-  
   handleClick(event){
       const color = document.querySelector("#colorPicker").value;
       event.target.style.backgroundColor = color;
@@ -43,8 +59,11 @@ class App extends Component {
       for (let c = 0; c < this.state.width; c++){
         cells.push(<td 
                       onClick={this.handleClick.bind(this)}
-                      style={{backgroundColor: null}}
-                      onDoubleClick={this.handleDoubleClickItem.bind(this)}></td>)
+                      onDoubleClick={this.handleDoubleClickItem.bind(this)}
+                      onMouseDown={this.handleMouseDown.bind(this)}
+                      onMouseUp={this.handleMouseUp.bind(this)}
+                      onMouseEnter={this.HandleHoverOn.bind(this)}
+                      ></td>)
       }
       rows.push(<tr>{cells}</tr>)
     }
