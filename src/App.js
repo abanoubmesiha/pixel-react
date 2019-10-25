@@ -1,25 +1,24 @@
 import React, {Component} from 'react';
 
+
 class App extends Component {
   constructor(){
     super();
     this.state={
       height:10,
-      width:10,
+      width:2
 
     }
     this.handleChangeHeight=this.handleChangeHeight.bind(this);
     this.handleChangeWidth=this.handleChangeWidth.bind(this);
-    this.renderTableData=this.renderTableData.bind(this);
+    this.handleClick=this.handleClick.bind(this);
   }
-  renderTableData() {
-       return (
-          <tr>
-             <td></td>
-          </tr>
-       )
-    }
- 
+
+  handleClick(event){
+    const color = document.querySelector("#colorPicker").value;
+    event.target.style.backgroundColor = color;
+    };
+  
   handleChangeHeight(event){
     this.setState({
       height: event.target.value
@@ -31,14 +30,20 @@ class App extends Component {
     })
   }
   render() {
+
       let rows = [];
-      for (var i = 0; i < this.state.height; i++){
-        let cell = []
-        for (var idx = 0; idx < this.state.width; idx++){
-          cell.push(<td></td>)
-        }
-        rows.push(<tr>{cell}</tr>)
+      for (let r = 0; r < this.state.height; r++){
+        let rowID = `row${r+1}`;
+        let cells = [];
+        for (let c = 0; c < this.state.width; c++){
+          let cellID = `cell${r+1}-${c+1}`;
+          cells.push(<td key={cellID} id={cellID} 
+                        onClick={this.handleClick.bind(this)}
+                        style={{backgroundColor: "#ffffff"}}></td>)
+        } //console.log(cells);
+        rows.push(<tr key={rowID} id={rowID}>{cells}</tr>)
       }
+     //console.log(rows);
     const {height, width} = this.state;
       return (
         <div className="container">
