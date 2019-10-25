@@ -13,36 +13,47 @@ class App extends Component {
   handleDoubleClickItem(event): void {
   	event.target.style.backgroundColor = null;
   }
-
+  
   handleClick(event){
-    const color = document.querySelector("#colorPicker").value;
-    event.target.style.backgroundColor = color;
+      const color = document.querySelector("#colorPicker").value;
+      event.target.style.backgroundColor = color;
+  }
+  handleNewGrid(){
+    const tds = document.querySelectorAll("td");
+    for(var i = 0; i < tds.length; i++){
+      tds[i].style.backgroundColor = null; 
+    }
   }
   handleChangeHeight(event){
+    this.handleNewGrid();
     this.setState({
       height: event.target.value
-    })
+    });
   }
   handleChangeWidth(event){
+    this.handleNewGrid();
     this.setState({
       width: event.target.value
-    })
+    });
+  }
+  handleCreateRows(){
+    let rows = [];
+    for (let r = 0; r < this.state.height; r++){
+      let cells = [];
+      for (let c = 0; c < this.state.width; c++){
+        cells.push(<td 
+                      onClick={this.handleClick.bind(this)}
+                      style={{backgroundColor: null}}
+                      onDoubleClick={this.handleDoubleClickItem.bind(this)}></td>)
+      }
+      rows.push(<tr>{cells}</tr>)
+    }
+    return rows
   }
   render() {
 // generate rows and cells
-      let rows = [];
-      for (let r = 0; r < this.state.height; r++){
-        let rowID = `row${r+1}`;
-        let cells = [];
-        for (let c = 0; c < this.state.width; c++){
-          let cellID = `cell${r+1}-${c+1}`;
-          cells.push(<td key={cellID} id={cellID} 
-                        onClick={this.handleClick.bind(this)}
-                        style={{backgroundColor: "#ffffff"}}
-                        onDoubleClick={this.handleDoubleClickItem.bind(this)}></td>)
-        }
-        rows.push(<tr key={rowID} id={rowID}>{cells}</tr>)
-      }
+     
+     
      
     const {height, width} = this.state;
       return (
@@ -62,15 +73,9 @@ class App extends Component {
             <input type="color" id="colorPicker" />
             <h2>Design Canvas</h2>
             <table>
-            <thead>
-              
-            </thead>
             <tbody>
-            {rows}
+            {this.handleCreateRows()}
             </tbody>
-            <tfoot>
-
-            </tfoot>
             </table>
             
         </div>
