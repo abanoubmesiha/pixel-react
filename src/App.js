@@ -11,21 +11,20 @@ class App extends Component {
 
     }
   }
-  HandleHoverOn(event){
+  HandleHoverOn(event){ // drag is ( hovering + drag:true )
     const color = document.querySelector("#colorPicker").value;
     if (this.state.drag) 
     { event.target.style.backgroundColor = color; }
   }
-  handleMouseUp(event){
+  handleMouseUp(){
         this.setState({
           drag:false
         })
   }
-  handleMouseDown(event){
+  handleMouseDown(){
     this.setState({
       drag:true
     })
-    
   }
   handleDoubleClickItem(event): void {
   	event.target.style.backgroundColor = null;
@@ -34,7 +33,7 @@ class App extends Component {
       const color = document.querySelector("#colorPicker").value;
       event.target.style.backgroundColor = color;
   }
-  handleNewGrid(){
+  handleNewGrid(){ //make cells without color every time grid dimensions change
     const tds = document.querySelectorAll("td");
     for(var i = 0; i < tds.length; i++){
       tds[i].style.backgroundColor = null; 
