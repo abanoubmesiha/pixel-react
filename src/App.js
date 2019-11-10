@@ -26,7 +26,7 @@ class App extends Component {
       drag:true
     })
   }
-  handleDoubleClickItem(event): void {
+  handleDoubleClickItem(event){
   	event.target.style.backgroundColor = null;
   }
   handleClick(event){
